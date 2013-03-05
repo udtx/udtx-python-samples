@@ -2,7 +2,7 @@
 @author: Adam Hickerson
 '''
 from optparse import OptionParser
-from CDEMessage_pb2 import CDEMessage, NodeActivate
+from CDEMessages_pb2 import CDEMessage
 import random
 import exceptions
 import socket
