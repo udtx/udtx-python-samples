@@ -1,0 +1,21 @@
+package com.udtx;
+
+message CDEMessage {
+	required string node_dcid = 1;
+	required int32 dcrn = 2;
+	optional string trans_id = 3;
+
+	optional NodeActivate activate_message = 500;
+	optional NodeActivateResponse activate_response = 501;
+}
+
+message NodeActivate {
+	required int64 node_dna = 1;
+	optional string node_name = 2;
+}
+
+message NodeActivateResponse {
+	required bool accepted = 1;
+	optional int32 error_code = 2;
+	optional string error_message = 3;
+}

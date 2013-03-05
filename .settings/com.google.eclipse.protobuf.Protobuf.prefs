@@ -1,0 +1,6 @@
+compiler.compileProtoFiles=true
+compiler.enableProjectSettings=true
+compiler.pythonCodeGenerationEnabled=true
+compiler.pythonOutputDirectory=udtx
+eclipse.preferences.version=1
+general.enableProjectSettings=true
