@@ -56,7 +56,7 @@ def nodeactivate(dna,dcid,dcrn=0):
     
     """Parse the response right into a new message object"""
     response = CDEMessage()
-    response_length = struct.unpack('!i',s.recv(4)) # Receive the length
+    response_length = struct.unpack('!i',s.recv(4))[0] # Receive the length
     response.ParseFromString(s.recv(response_length)) # Then the message!
     
     """Many types of messages can be sent using the CDEMessage class. We first
@@ -81,7 +81,7 @@ def nodeactivate(dna,dcid,dcrn=0):
     """Final, never-to-occur scenario: the DCID isn't the one we just assigned.
     It should be noted that if any of three errors does occur, the message
     should not be attempted again."""
-    if response.dcid != dcid:
+    if response.node_dcid != dcid:
         raise UDTXError("Received incorrect DCID in response. Received " +
                         response.dcid)
     
@@ -90,7 +90,7 @@ def nodeactivate(dna,dcid,dcrn=0):
         return True
     else:
         raise UDTXError("Failed to activate node. Server returned error " +
-                        response.activate_response.error_code + ": " +
+                        str(response.activate_response.error_code) + ": " +
                         response.activate_response.error_message)
 
 def parse_dna_string(dna):
@@ -124,9 +124,14 @@ def main():
     try:
         if len(args) == 2:
             if options.dcrn:
-                nodeactivate(args[0],args[1],options.dcrn)
+                dcrn = options.dcrn
             else:
-                nodeactivate(args[0],args[1])
+                dcrn = 0
+            
+            if nodeactivate(args[0],args[1],dcrn):
+                print "Node activated successfully"
+            else:
+                print "Failed node activation"
         else:
             p.print_help()
     except UDTXError as e:
