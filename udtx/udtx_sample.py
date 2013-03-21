@@ -44,7 +44,7 @@ def nodeactivate(dna,dcid,dcrn=0):
     then we can work on reading that response."""
     """Let's get a connection to the CDE open"""
     s = socket.socket();
-    s.connect(("cde.udtx.com",3886)) # Inbound messages port
+    s.connect(("cde.udtx.com",4000)) # Inbound messages port
     s.settimeout(5) # Nothing should take 5 seconds
     
     """ Now we send and receive a CDE message frame. The message frame is very
