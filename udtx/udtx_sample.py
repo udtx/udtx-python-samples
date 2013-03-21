@@ -104,12 +104,12 @@ def parse_dna_string(dna):
             raise UDTXError("Malformed DNA string at component " + i + ": " +
                             dna)
         try:
-            dna_long += int(split[i],16) << (3-i)
+            dna_long += int(split[i],16) << (3-i-1)*16
         except exceptions.ValueError:
             raise UDTXError("Malformed DNA string at component " + i + ": " +
                             dna)
-            
-    return dna_long
+    
+    return dna_long & 0x00FFFFFFFFFFFF
 
 def main():
     p = OptionParser(description='Generates sample UDTX messages',
